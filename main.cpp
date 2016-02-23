@@ -45,10 +45,10 @@ const std::string videoAddr = "http://admin:103iCorE@192.168.103.59/video.cgi?.m
 //const std::string videoAddr = "http://plazacam.studentaffairs.duke.edu/mjpg/video.mjpg"; //duke university plaza
 
 const std::string icoreFloorPlanImage = "../../iCORE_floor_plan.jpg";
-const int cameraPixelX = 130;
-const int cameraPixelY = 960;
+const int cameraPixelX = 70;
+const int cameraPixelY = 70;
 
-const float pixelToMeterRatio = 0.01209; //meters in one pixel
+const float pixelToMeterRatio = 0.01216; //meters in one pixel
 const float pixelToFeetRatio = 0.476; //feet in one pixel
 
 //Calculate coordinate of pixel in space assuming that the camera is facing down the
@@ -206,12 +206,10 @@ int main (int argc, const char * argv[])
             float feetY = r.y + r.height;
 
             glm::vec3 person = getIntersect((int)feetX, (int)feetY);
-            int feetPixX = person.y / pixelToMeterRatio;
-            int feetPixY = person.x / pixelToMeterRatio;
+            int feetPixX = person.x / pixelToMeterRatio;
+            int feetPixY = person.y / pixelToMeterRatio;
 
-
-
-            circle(icoreFloorPlan, CvPoint(feetPixX + cameraPixelX, cameraPixelY - feetPixY), 2, cv::Scalar(255, 0, 0), 4);
+            circle(icoreFloorPlan, CvPoint(feetPixX + cameraPixelX, cameraPixelY + feetPixY), 2, cv::Scalar(255, 0, 0), 4);
             rectangle(img, r.tl(), r.br(), cv::Scalar(0,255,0), 2);
         }
 
