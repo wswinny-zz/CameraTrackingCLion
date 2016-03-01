@@ -130,16 +130,18 @@ public:
         std::vector<cv::Rect> found, found_filtered;
         hog.detectMultiScale(img, found, 0, cv::Size(4,4), cv::Size(6,6), 1.30, 4);
 
-        for (int i = 0; i < found_filtered.size(); i++)
+        for (int i = 0; i < found.size(); i++)
         {
-            cv::Rect r = found_filtered[i];
-            r.x += cvRound(r.width*0.1);
-            r.width = cvRound(r.width*0.8);
-            r.y += cvRound(r.height*0.06);
-            r.height = cvRound(r.height*0.9);
+            cv::Rect r = found[i];
+            r.x += cvRound(r.width * 0.1);
+            r.width = cvRound(r.width * 0.8);
+            r.y += cvRound(r.height * 0.06);
+            r.height = cvRound(r.height * 0.9);
 
             float feetX = r.x + (r.width / 2.0);
             float feetY = r.y + r.height;
+
+            rectangle(this->img, r.tl(), r.br(), cv::Scalar(0,255,0), 2);
 
             glm::vec3 person = getIntersect((int)feetX, (int)feetY);
             peoplePoints.push_back(person);
